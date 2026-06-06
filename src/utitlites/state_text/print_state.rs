@@ -22,8 +22,8 @@ pub fn print_state(font: FIGlet, pomodoro: &Pomodoro) {
     println!("{}", "\n".repeat(pad_y.saturating_sub(20)));
     for line in lines {
         match pomodoro.state {
-            State::Work => println!("{}{}", " ".repeat(pad_x), line.red()),
-            State::Rest => println!("{}{}", " ".repeat(pad_x), line.green()),
+            State::Work => println!("{}{}\r", " ".repeat(pad_x), line.red()),
+            State::Rest => println!("{}{}\r", " ".repeat(pad_x), line.green()),
         }
     }
 }

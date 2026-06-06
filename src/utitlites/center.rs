@@ -2,7 +2,7 @@ use colored::Colorize;
 use crossterm::terminal;
 use figlet_rs::FIGlet;
 
-use crate::pomodoro::{self, Pomodoro, State};
+use crate::pomodoro::{Pomodoro, State};
 
 pub fn center(pomodoro: &Pomodoro, time: &str, font: FIGlet) {
     let rendered = font.convert(time).unwrap().to_string();
@@ -15,12 +15,12 @@ pub fn center(pomodoro: &Pomodoro, time: &str, font: FIGlet) {
     let pad_x = (cols as usize).saturating_sub(tw) / 2;
     let pad_y = (rows as usize).saturating_sub(time.len()) / 2;
 
-    print!("{}", "\n".repeat(pad_y));
+    print!("{}", "\r\n".repeat(pad_y));
 
     for line in lines {
         match pomodoro.state {
-            State::Work => println!("{}{}", " ".repeat(pad_x), line.red()),
-            State::Rest => println!("{}{}", " ".repeat(pad_x), line.green()),
+            State::Work => println!("{}{}\r", " ".repeat(pad_x), line.red()),
+            State::Rest => println!("{}{}\r", " ".repeat(pad_x), line.green()),
         }
     }
 }
