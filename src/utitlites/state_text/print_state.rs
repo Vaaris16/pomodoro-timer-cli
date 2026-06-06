@@ -2,10 +2,14 @@ use colored::Colorize;
 use crossterm::terminal;
 use figlet_rs::FIGlet;
 
-use crate::pomodoro::{self, Pomodoro, State};
+use crate::{
+    pomodoro::{Pomodoro, State},
+    utitlites::state_text::get_state_text::get_state_text,
+};
 
-pub fn center(pomodoro: &Pomodoro, time: &str, font: FIGlet) {
-    let rendered = font.convert(time).unwrap().to_string();
+pub fn print_state(font: FIGlet, pomodoro: &Pomodoro) {
+    let state_text = get_state_text(pomodoro);
+    let rendered = font.convert(&state_text).unwrap().to_string();
     let lines: Vec<&str> = rendered.lines().collect();
 
     let tw = lines.iter().map(|l| l.len()).max().unwrap();
@@ -13,10 +17,9 @@ pub fn center(pomodoro: &Pomodoro, time: &str, font: FIGlet) {
     let (cols, rows) = terminal::size().unwrap();
 
     let pad_x = (cols as usize).saturating_sub(tw) / 2;
-    let pad_y = (rows as usize).saturating_sub(time.len()) / 2;
+    let pad_y = (rows as usize).saturating_sub(state_text.len()) / 2;
 
-    print!("{}", "\n".repeat(pad_y));
-
+    println!("{}", "\n".repeat(pad_y.saturating_sub(20)));
     for line in lines {
         match pomodoro.state {
             State::Work => println!("{}{}", " ".repeat(pad_x), line.red()),
