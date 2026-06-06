@@ -1,7 +1,10 @@
+use colored::Colorize;
 use crossterm::terminal;
 use figlet_rs::FIGlet;
 
-pub fn center(time: &str, font: FIGlet) {
+use crate::pomodoro::{self, Pomodoro, State};
+
+pub fn center(pomodoro: &Pomodoro, time: &str, font: FIGlet) {
     let rendered = font.convert(time).unwrap().to_string();
     let lines: Vec<&str> = rendered.lines().collect();
 
@@ -17,6 +20,9 @@ pub fn center(time: &str, font: FIGlet) {
     print!("{}", "\n".repeat(pad_y));
 
     for line in lines {
-        println!("{}{}", " ".repeat(pad_x), line);
+        match pomodoro.state {
+            State::Work => println!("{}{}", " ".repeat(pad_x), line.red()),
+            State::Rest => println!("{}{}", " ".repeat(pad_x), line.green()),
+        }
     }
 }
