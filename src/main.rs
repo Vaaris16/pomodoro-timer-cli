@@ -4,6 +4,8 @@ use crossterm::terminal::{EnterAlternateScreen, enable_raw_mode};
 use figlet_rs::FIGlet;
 use std::io::stdout;
 
+use clap::Parser;
+
 mod pomodoro;
 mod utitlites;
 
@@ -15,8 +17,17 @@ use crate::utitlites::{keybinds::keybinds::keybinds, state_text::print_state::pr
 const WORK_TIME: usize = 1 * 60;
 const REST_TIME: usize = 1 * 60;
 
+#[derive(Parser)]
+struct Cli {
+    #[arg(short, long, action = clap::ArgAction::SetTrue)]
+    alarm: bool,
+}
+
 fn main() {
+    let cli = Cli::parse();
     let mut pomodoro = Pomodoro::new();
+
+    let alarm = cli.alarm;
 
     enable_raw_mode().unwrap();
     execute!(stdout(), EnterAlternateScreen).unwrap();
@@ -33,7 +44,7 @@ fn main() {
         center(&pomodoro, &time, big_font);
         print_state(small_font, &pomodoro);
 
-        change_state(&mut pomodoro);
+        change_state(&mut pomodoro, alarm);
 
         keybinds();
         pomodoro.tick();
