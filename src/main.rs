@@ -12,8 +12,8 @@ use utitlites::{center::center, change_state::change_state, get_text::get_time};
 
 use crate::utitlites::{keybinds::keybinds::keybinds, state_text::print_state::print_state};
 
-const WORK_TIME: usize = 25 * 60;
-const REST_TIME: usize = 10 * 60;
+const WORK_TIME: usize = 1 * 60;
+const REST_TIME: usize = 1 * 60;
 
 fn main() {
     let mut pomodoro = Pomodoro::new();
