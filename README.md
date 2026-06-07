@@ -13,4 +13,7 @@ A simple Pomodoro Timer right in your terminal built in rust. Uses figlet-rs to 
 cargo install pomodoro-timer-cli
 ```
 
+# Flags
+- `-a`, `--alarm` — Enables alarm which plays an alarm on state change
+
 Enjoy!

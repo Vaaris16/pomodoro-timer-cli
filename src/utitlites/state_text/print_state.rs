@@ -1,4 +1,4 @@
-use colored::Colorize;
+use crossterm::style::Stylize;
 use crossterm::terminal;
 use figlet_rs::FIGlet;
 
