@@ -1,4 +1,4 @@
-# Pomodoro-timer-cli[RUST]
+# Pomodoro-timer-cli [RUST]
 
 # About
 
